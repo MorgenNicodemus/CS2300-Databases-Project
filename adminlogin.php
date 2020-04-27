@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>ReaverCTF Admin Login</title>
         <meta name="description" content="The admin login page of ReaverCTF">
-        <link rel="stylesheet" href="pages/assets/main.css">
+        <link rel="stylesheet" href="assets/main.css">
     </head>
     <body>
 
@@ -54,7 +54,7 @@
     echo '		<br />
     		<br />
     		<div align = "center">
-    		<h1> Welcome back to ReaverCTF, admin! Please log in.</h1>
+    		<h2> Welcome back to ReaverCTF, admin! Please log in.</h2>
     		<section class = "logmein">
     		<form name = "login" action = "login.php" method = "post">
     		<ul>
