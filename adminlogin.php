@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ReaverCTF Login</title>
-        <meta name="description" content="The login page of ReaverCTF">
+        <title>ReaverCTF Admin Login</title>
+        <meta name="description" content="The admin login page of ReaverCTF">
         <link rel="stylesheet" href="pages/assets/main.css">
     </head>
     <body>
@@ -19,7 +19,7 @@
 
 	if (isset($_POST["login"]) and fieldExist()) {
 		//Login code copied on 2/24/18 from MySQL2-BasicLogin
-		$checkUser =  mysqli_prepare($databaseSQL, "SELECT PASS FROM PLAYER WHERE USER_NAME=?;");
+		$checkUser =  mysqli_prepare($databaseSQL, "SELECT APASS FROM ADMINS WHERE AUSER_NAME=?;");
 		mysqli_stmt_bind_param($checkUser, 's', $name);
 
 		$name = $_POST["username"]; //Grabs name and password entered from POST
@@ -43,7 +43,7 @@
 		echo '<!DOCTYPE HTML>
 		<html>
 		<head><meta charset="utf-8">
-		<title>ReaverCTF Login</title>
+		<title>ReaverCTF Admin Login</title>
 		<meta name="description" content="Login page!">
 		<meta name="author" content="ReaverCTF"></head>
 		<body>';
@@ -55,7 +55,7 @@
     echo '		<br />
     		<br />
     		<div align = "center">
-    		<h1> Welcome back to ReaverCTF! Please log in.</h1>
+    		<h1> Welcome back to ReaverCTF, admin! Please log in.</h1>
     		<section class = "logmein">
     		<form name = "login" action = "login.php" method = "post">
     		<ul>
@@ -71,7 +71,7 @@
     		 </section>
     		</div>';
 		echo '<form action="register.php">I don\'t have an account. <input type="submit" value="Take me to registration!" /></form>';
-    echo '<form action="adminlogin.php">I\'m a ReaverCTF Admin. <input type="submit" value="Take me to Admin Login!" /></form>';
+    echo '<form action="login.php">I\'m a ReaverCTF Player. <input type="submit" value="Take me to Player Login!" /></form>';
 	}
 
 	mysqli_close($databaseSQL); //Closes socket to MySQL! Important!
