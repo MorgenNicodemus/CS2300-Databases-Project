@@ -4,6 +4,7 @@
       <meta charset="utf-8">
       <title>ReaverCTF!</title>
       <metaname="decription", content="Login to ReaverCTF">
+            <link rel="stylesheet" href="assets/main.css">
   </head>
   <body>
     <?php
