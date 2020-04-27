@@ -2,9 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>ReaverCTF Login</title>
-        <meta name="description" content="The login page of ReaverCTF">
+        <meta name="description" content="ReaverCTF">
         <link rel="stylesheet" href="pages/assets/main.css">
     </head>
     <body>
