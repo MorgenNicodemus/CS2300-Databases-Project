@@ -17,12 +17,13 @@
 		    trigger_error('Could not connect to MySQL: '.mysqli_connect_error() );
 	  }
 
+
     if (isset($_POST["submit"])) {
-		    $checkUser =  mysqli_prepare($databaseSQL, "SELECT Email, Password FROM users WHERE Email=? AND Password=?;");
+		    $checkUser =  mysqli_prepare($databaseSQL, "SELECT user_name, pass FROM player WHERE user_name=? AND pass=?;");
 		    mysqli_stmt_bind_param($checkUser, 'ss', $name, $password);
 
 		    $name = $_POST["username"]; //Grabs name and password entered from POST after page redirect from home.html on submit
-		    $password = $_POST["passwrd"];
+		    $password = $_POST["password"];
 
 		    mysqli_stmt_execute($checkUser); //Prevents SQL Injection?
         $result = mysqli_stmt_get_result($checkUser);

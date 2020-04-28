@@ -18,7 +18,7 @@
 
 	if (isset($_POST["login"]) and fieldExist()) {
 		//Login code copied on 2/24/18 from MySQL2-BasicLogin
-		$checkUser =  mysqli_prepare($databaseSQL, "SELECT PASS FROM PLAYER WHERE USER_NAME=?;");
+		$checkUser =  mysqli_prepare($databaseSQL, "SELECT pass FROM player WHERE user_name=?;");
 		mysqli_stmt_bind_param($checkUser, 's', $name);
 
 		$name = $_POST["username"]; //Grabs name and password entered from POST

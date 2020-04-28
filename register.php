@@ -10,13 +10,14 @@
 
 <?php
 	require 'setup.php';
+  
 	if (isset($_SESSION['usernamev3'])) { //Person is already logged in
 		header('Location: member.php');
 		exit("You are already logged in. Redirecting to member page..."); //Automatically closes MySQL connection and sends to logged in page
 	}
 	if (isset($_POST["register"]) and fieldExist()) {
 		//Checks if user already exists
-		$checkUser =  mysqli_prepare($databaseSQL, "select user_name from reaver.player where user_name=?;");
+		$checkUser =  mysqli_prepare($databaseSQL, "SELECT user_name from reaver.player where user_name=?;");
 		mysqli_stmt_bind_param($checkUser, 's', $name);
 
 		$name = $_POST["username"]; //Grabs name and password entered from POST
@@ -24,40 +25,29 @@
     #$team = $_POST["teamname"];
 		mysqli_stmt_execute($checkUser); //System of prepared execution prevents SQL Injection
 		$result = mysqli_stmt_get_result($checkUser);
-    $resultArray = [];
-    $arraySerial = serialize($resultArray);
 
 //4.27 10:16am  - need to figure out how to check if a team with that name exists, if not create one, if so add user to team
 
 		if (!mysqli_num_rows($result)) { //Only creates user if query SELECT returns no rows (so username is not in use)
-			$checkUser =  mysqli_prepare($databaseSQL, "insert into reaver.player (user_name, pass) values (?,?)");
+			$checkUser =  mysqli_prepare($databaseSQL, "INSERT into reaver.player (user_name, pass) values (?, ?)");
 			mysqli_stmt_bind_param($checkUser, 'ss', $name, $password);
 
 			$name = $_POST["username"]; //Grabs name and password entered from POST after page redirect from home.html on submit
-			$password = password_hash($_POST["passwrd"], PASSWORD_DEFAULT);
+			$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-      mysqli_stmt_execute($checkUser); //Prevents SQL Injection?
-			echo "Account created with username {$name}.";
-			echo '<br><button onClick="javascript:window.location.href=\'login.php\'">Take me to login!</button>';
+      if(mysqli_stmt_execute($checkUser)) { //Prevents SQL Injection?
+			     echo "Account created with username {$name}.";
+           header("location: login.php");
+      } else {
+        echo "Issue";
+      }
+
 		} else {
 			echo "Username already in use.";
-			echo '<br><button onClick="javascript:window.location.href=\'register.php\'">Try again!</button>';
 		}
 		mysqli_stmt_free_result($checkUser);
 		mysqli_stmt_close($checkUser);
-	} else { // Form generation if submit has not been pressed
-		// echo '<!DOCTYPE HTML>
-		// <html>
-		// <head><meta charset="utf-8">
-		// <title>David Frankel\'s Fancy Login Page</title>
-		// <meta name="description" content="Less basic login!">
-		// <meta name="author" content="David Frankel"></head>
-		// <body>';
-		// echo '<form action="register.php" method="post">
-		// 	Username: <input type="text" name="username" required><br>
-		// 	Password: <input type="password" name="passwrd" required><br>
-		// 	<input type="submit" value="Register" name="register">
-		// 	</form>';
+	} else {
 
       echo '<div align = "center">
   		<br />
