@@ -10,10 +10,10 @@
 
 <?php
 	require 'setup.php';
-  
+
 	if (isset($_SESSION['usernamev3'])) { //Person is already logged in
-		header('Location: member.php');
-		exit("You are already logged in. Redirecting to member page..."); //Automatically closes MySQL connection and sends to logged in page
+		header('Location: puzzle.php');
+		exit("You are already logged in. Redirecting to puzzle page..."); //Automatically closes MySQL connection and sends to logged in page
 	}
 	if (isset($_POST["register"]) and fieldExist()) {
 		//Checks if user already exists
