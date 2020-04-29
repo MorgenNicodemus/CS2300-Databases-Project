@@ -34,13 +34,15 @@ a.diagButton {
 }
 
 .navbar {
+    position: relative;
+    width: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     list-style-type: none;
     margin: 40px 0px;
-    padding: 10px 0px 10px 150px ;
-    background-color: white;
+    padding: 10px 0px 10px 100px;
+    background-color: gray;
     vertical-align: middle;
 }
 
@@ -50,7 +52,7 @@ a.diagButton {
 
 .navbar li a {
     display: inline;
-    color: black;
+    color: white;
     text-align: center;
     padding: 14px 30px;
     font-size: 20pt;
@@ -59,21 +61,6 @@ a.diagButton {
 
 .navbar li a:hover {
     background-color: lightgray;
-}
-
-#selected {
-    background-color: lightgray;
-}
-
-.callout {
-    background-color: white;
-    font-size: 20pt;
-    margin: 20px;
-    padding: 10px;
-}
-
-.callout li {
-    list-style-type: none;
 }
 
 .button {
@@ -90,87 +77,4 @@ a.diagButton {
     border-left: 1px solid #CCCCCC;
 }
 
-.resources img {
-    height: 125px;
-    padding-bottom: 40px;
-}
-
-.resources {
-    text-align: center;
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding-bottom: 50px;
-}
-
-.resources td {
-    width: 33%;
-}
-
-.past {
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding-bottom: 50px;
-}
-
-.past td {
-    12.5%
-}
-
-.past img {
-    height: 40px;
-}
-
-#selected {
-    background-color: lightgray;
-}
-
-.column {
-    float: left;
-    width: 50%;
-}
-
-.callout:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.registerme li {
-    list-style-type: none;
-}
-.logmein li {
-    list-style-type: none;
-}
-
-a:active {
-    box-shadow: 0.25px 0.5px #bebebe inset;
-}
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 300px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -150px;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
 }
