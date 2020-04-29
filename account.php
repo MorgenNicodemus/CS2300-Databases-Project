@@ -14,7 +14,7 @@
         <li><a href="logout.php">Logout</a></li>
     </ul>
     <div align = "center">
-    <h3> ReaverCTF Puzzles</h3>
+    <h3> Account</h3>
 
     </div>
   </body>

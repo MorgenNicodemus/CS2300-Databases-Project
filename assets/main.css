@@ -16,7 +16,7 @@ h2 {
 
 h3 {
     text-align: center;
-    font-size: 24pt;
+    font-size: 36pt;
 }
 
 h4 {
@@ -58,25 +58,6 @@ a.diagButton {
 }
 
 .navbar li a:hover {
-    background-color: lightgray;
-}
-
-.homeIcon {
-    position: absolute;
-    top: 10px;
-    left: 75px;
-    background-color: white;
-    border-radius: 12px;
-    list-style-type: none;
-    padding: 30px;
-}
-
-.homeIcon a img{
-    width: 45px;
-    height: 45px;
-}
-
-.homeIcon:hover {
     background-color: lightgray;
 }
 
