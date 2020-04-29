@@ -11,20 +11,19 @@
 <?php
 	require 'setup.php';
 
-	if (isset($_SESSION['usernamev3'])) { //Person is already logged in
+	if (isset($_SESSION['usernamev3'])) {
 		header('Location: puzzle.php');
-		exit("You are already logged in. Redirecting to puzzle page..."); //Automatically closes MySQL connection and sends to logged in page
+		exit("Redirecting to puzzles");
 	}
 
 	if (isset($_POST["login"]) and fieldExist()) {
-		//Login code copied on 2/24/18 from MySQL2-BasicLogin
-		$checkUser =  mysqli_prepare($databaseSQL, "SELECT admins_pass FROM admins WHERE auser_name=?;");
+		$checkUser =  mysqli_prepare($ReaverDB, "SELECT admins_pass FROM admins WHERE auser_name=?;");
 		mysqli_stmt_bind_param($checkUser, 's', $name);
 
-		$name = $_POST["username"]; //Grabs name and password entered from POST
+		$name = $_POST["username"];
 		$password = $_POST["password"];
 
-		mysqli_stmt_execute($checkUser); //System of prepared execution prevents SQL Injection
+		mysqli_stmt_execute($checkUser);
 		mysqli_stmt_store_result($checkUser);
 		mysqli_stmt_bind_result($checkUser, $userPasswordHash);
 		mysqli_stmt_fetch($checkUser);
@@ -32,13 +31,13 @@
 			echo "Logged in.";
 			$_SESSION['usernamev3'] = $name;
 			header('Location: puzzle.php');
-			exit("Welcome. Redirecting to puzzle page..."); //Automatically closes MySQL connection and sends to logged in page
+			exit("Redirecting to puzzles");
 		} else {
 			echo "Username or password incorrect.";
 		}
 		mysqli_stmt_free_result($checkUser);
 		mysqli_stmt_close($checkUser);
-	} else { // Form generation if submit has not been pressed
+	} else {
 		echo '<!DOCTYPE HTML>
 		<html>
 		<head><meta charset="utf-8">
@@ -46,11 +45,7 @@
 		<meta name="description" content="Login page!">
 		<meta name="author" content="ReaverCTF"></head>
 		<body>';
-		// echo '<form action="login.php" method="post">
-		// 	Username: <input type="text" name="username" required><br>
-		// 	Password: <input type="password" name="passwrd" required><br>
-		// 	<input type="submit" value="Login" name="login">
-		// 	</form>';
+
     echo '		<br />
     		<br />
     		<div align = "center">
@@ -73,7 +68,7 @@
     echo '<form action="login.php">I\'m a ReaverCTF Player. <input type="submit" value="Take me to Player Login!" /></form>';
 	}
 
-	mysqli_close($databaseSQL); //Closes socket to MySQL! Important!
+	mysqli_close($ReaverDB);
 
 	function fieldExist() {
 		if ($_POST["username"] !== "" and $_POST["password"] !== "") {

@@ -12,20 +12,20 @@
     error_reporting(-1);
 	  ini_set('display_errors', 'On');
 
-    $databaseSQL = mysqli_connect('localhost', 'root', 'SammieIsLife123', 'reaver');
-    if (!$databaseSQL) {
+    $ReaverDB = mysqli_connect('localhost', 'root', 'SammieIsLife123', 'reaver');
+    if (!$ReaverDB) {
 		    trigger_error('Could not connect to MySQL: '.mysqli_connect_error() );
 	  }
 
 
     if (isset($_POST["submit"])) {
-		    $checkUser =  mysqli_prepare($databaseSQL, "SELECT user_name, pass FROM player WHERE user_name=? AND pass=?;");
+		    $checkUser =  mysqli_prepare($ReaverDB, "SELECT user_name, pass FROM player WHERE user_name=? AND pass=?;");
 		    mysqli_stmt_bind_param($checkUser, 'ss', $name, $password);
 
-		    $name = $_POST["username"]; //Grabs name and password entered from POST after page redirect from home.html on submit
+		    $name = $_POST["username"];
 		    $password = $_POST["password"];
 
-		    mysqli_stmt_execute($checkUser); //Prevents SQL Injection?
+		    mysqli_stmt_execute($checkUser);
         $result = mysqli_stmt_get_result($checkUser);
 
 		    if (mysqli_num_rows($result))
@@ -40,7 +40,7 @@
 
 		mysqli_stmt_close($checkUser);
   }
-    mysqli_close($databaseSQL);
+    mysqli_close($ReaverDB);
     ?>
     <div align = "center">
     <h1> ReaverCTF</h1>

@@ -15,7 +15,7 @@
     </ul>
     <div align = "center">
     <h3> Account</h3>
-
+    <!-- 4.27 10:16am  - need to figure out how to check if a team with that name exists, if not create one, if so add user to team  -->
     </div>
   </body>
 </html>

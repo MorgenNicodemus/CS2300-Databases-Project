@@ -11,35 +11,31 @@
 <?php
 	require 'setup.php';
 
-	if (isset($_SESSION['usernamev3'])) { //Person is already logged in
+	if (isset($_SESSION['usernamev3'])) {
 		header('Location: puzzle.php');
-		exit("You are already logged in. Redirecting to puzzle page..."); //Automatically closes MySQL connection and sends to logged in page
+		exit("Redirecting to puzzles");
 	}
 	if (isset($_POST["register"]) and fieldExist()) {
-		//Checks if user already exists
-		$checkUser =  mysqli_prepare($databaseSQL, "SELECT user_name from reaver.player where user_name=?;");
+		$checkUser =  mysqli_prepare($ReaverDB, "SELECT user_name from reaver.player where user_name=?;");
 		mysqli_stmt_bind_param($checkUser, 's', $name);
 
-		$name = $_POST["username"]; //Grabs name and password entered from POST
+		$name = $_POST["username"];
 		$password = $_POST["password"];
-    #$team = $_POST["teamname"];
-		mysqli_stmt_execute($checkUser); //System of prepared execution prevents SQL Injection
+		mysqli_stmt_execute($checkUser);
 		$result = mysqli_stmt_get_result($checkUser);
 
-//4.27 10:16am  - need to figure out how to check if a team with that name exists, if not create one, if so add user to team
-
-		if (!mysqli_num_rows($result)) { //Only creates user if query SELECT returns no rows (so username is not in use)
-			$checkUser =  mysqli_prepare($databaseSQL, "INSERT into reaver.player (user_name, pass) values (?, ?)");
+		if (!mysqli_num_rows($result)) {
+			$checkUser =  mysqli_prepare($ReaverDB, "INSERT into reaver.player (user_name, pass) values (?, ?)");
 			mysqli_stmt_bind_param($checkUser, 'ss', $name, $password);
 
-			$name = $_POST["username"]; //Grabs name and password entered from POST after page redirect from home.html on submit
+			$name = $_POST["username"];
 			$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-      if(mysqli_stmt_execute($checkUser)) { //Prevents SQL Injection?
-			     echo "Account created with username {$name}.";
+      if(mysqli_stmt_execute($checkUser)) {
+			     echo "Account created";
            header("location: login.php");
       } else {
-        echo "Issue";
+        echo "Issue occured, please try again";
       }
 
 		} else {
@@ -48,9 +44,7 @@
 		mysqli_stmt_free_result($checkUser);
 		mysqli_stmt_close($checkUser);
 	} else {
-
       echo '<div align = "center">
-  		<br />
   		<br />
   		<br />
   		<h2> ReaverCTF Registration </h2>
@@ -83,7 +77,7 @@
     echo '<form action="adminlogin.php">I already have an ADMIN account.<input type="submit" value="Take me to admin login!" /></form>';
 	}
 
-	mysqli_close($databaseSQL); //Closes socket to MySQL! Important!
+	mysqli_close($ReaverDB);
 
 	function fieldExist() {
 		if ($_POST["username"] !== "" and $_POST["passwrd"] !== "") {
