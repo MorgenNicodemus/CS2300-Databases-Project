@@ -12,8 +12,8 @@
 	require 'setup.php';
 
 	if (isset($_SESSION['usernamev3'])) { //Person is already logged in
-		header('Location: member.php');
-		exit("You are already logged in. Redirecting to member page..."); //Automatically closes MySQL connection and sends to logged in page
+		header('Location: puzzle.php');
+		exit("You are already logged in. Redirecting to puzzle page..."); //Automatically closes MySQL connection and sends to logged in page
 	}
 
 	if (isset($_POST["login"]) and fieldExist()) {
@@ -31,8 +31,8 @@
 		if (password_verify($_POST["password"], $userPasswordHash)) {
 			echo "Logged in.";
 			$_SESSION['usernamev3'] = $name;
-			header('Location: member.php');
-			exit("Welcome. Redirecting to member page..."); //Automatically closes MySQL connection and sends to logged in page
+			header('Location: puzzle.php');
+			exit("Welcome. Redirecting to puzzle page..."); //Automatically closes MySQL connection and sends to logged in page
 		} else {
 			echo "Username or password incorrect.";
 		}
