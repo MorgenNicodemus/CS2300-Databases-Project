@@ -1,4 +1,5 @@
 Category: Trivia
+Puzzle Number: 1
 Title: Coffee Shop
 Body: Which country produces the most coffee in the world?
 Flag: reaverCTF{Brazil}
@@ -6,6 +7,7 @@ Point Value: 50
 Hint: South America
 
 Category: Trivia
+Puzzle Number: 2
 Title: Octopus
 Body: How many hearts does an octopus have? (Spell out quantity)
 Flag: reaverCTF{three}
@@ -13,6 +15,7 @@ Point Value: 50
 Hint: More than a time lord.
 
 Category: Cryptography
+Puzzle Number: 3
 Title: I Like My Eggs Served...
 Body: 63 6d 56 68 64 6d 56 79 51 31 52 47 65 33 4e 6a 63 6a 52 74 59 6d 77 7a 5a 46 39 33 4d 58 52 6f 58 32 4e 6f 4d 7a 4d 31 4d 33 30 3d
 Flag: reaverCTF{scr4mbl3d_w1th_ch3353}
@@ -20,6 +23,7 @@ Point Value: 100
 Hint: base64
 
 Category: Cryptograph
+Puzzle Number: 4
 Title: Super Secure Password
 Body: We found this on a sticky note in the break room. Maybe it's a password hash? 482c811da5d5b4bc6d497ffa98491e38
 Flag: reaverCTF{password123}
@@ -27,6 +31,7 @@ Point Value: 150
 Hint: MDDDDD
 
 Category: Physical Security
+Puzzle Number: 5
 Title: Bathroom Break
 Body: What should you do to your computer when you leave the room? a- lock the device, b- unplug the monitor, c- turn off the monitor, d- just don't leave
 Flag: reaverCTF{lock the device}

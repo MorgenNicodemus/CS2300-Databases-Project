@@ -9,6 +9,12 @@
   <body>
     <?php
     require 'setup.php';
+
+    $puzzlelist =  "SELECT puzz_val, puzz_name, c_name, puzz_no FROM puzzle, p_belongs_to ORDER BY puzz_no DESC;";
+    $result = mysql_query($puzzlelist);
+    while($row = mysql_fetch_array($result)) {
+      echo "Value: ".$row['column1']." | Name: ".$row['column2']." | Category: ".$row['column3'].;
+    }
     ?>
     <ul class="navbar">
         <li><a href="puzzle.php">Puzzles</a></li>
