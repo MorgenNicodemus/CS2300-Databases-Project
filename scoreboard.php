@@ -7,6 +7,15 @@
       <link rel="stylesheet" href="assets/main.css">
   </head>
   <body>
+    <?php
+    require 'setup.php';
+
+    $scoreboard =  "SELECT t_name, score FROM team ORDER BY score DESC;";
+    $result = mysql_query($scoreboard);
+    while($row = mysql_fetch_array($result)) {
+      echo "Team: ".$row['column1']." | ".$row['column2'];
+    }
+    ?>
     <ul class="navbar">
         <li><a href="puzzle.php">Puzzles</a></li>
         <li><a href="account.php">Account</a></li>

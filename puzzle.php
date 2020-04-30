@@ -7,6 +7,9 @@
       <link rel="stylesheet" href="assets/main.css">
   </head>
   <body>
+    <?php
+    require 'setup.php';
+    ?>
     <ul class="navbar">
         <li><a href="puzzle.php">Puzzles</a></li>
         <li><a href="account.php">Account</a></li>
