@@ -9,7 +9,7 @@ How I'm setup
 ----------------------
 I'm currently using Atom with a php-server plug-in. Requires php be installed, php goes in C: drive. MySQL seems to require Python 3.6 64-bit version. Git can also be used with Atom to have a nice lil gui and such. Just install git, pull the repo, (maybe set origin? don't remember), and open the folder/files in Atom.
 
-###To-do
+### To-do
 - Write challenges/put them in the database
 - Edit CSS, Make site look Nice
 - Make logo
