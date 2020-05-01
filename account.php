@@ -9,6 +9,15 @@
   <body>
     <?php
     require 'setup.php';
+
+    //4/30 --- how to figure out who the user that is logged in is (P)
+    $getUserInfo =  "SELECT user_name, player.score, t_name, team.score FROM player, u_belongs_to, team;";
+    $result = mysql_query($getUserInfo);
+
+    echo "Username: ".$row['column1']." | Player Score: ".$row['column2']." | Team Name: ".$row['column3']." | Team Score: ".$row['column4'].;
+
+    mysqli_close($ReaverDB);
+
     ?>
     <ul class="navbar">
         <li><a href="puzzle.php">Puzzles</a></li>

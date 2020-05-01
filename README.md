@@ -16,6 +16,7 @@ I'm currently using Atom with a php-server plug-in. Requires php be installed, p
 - Make logo
 - Finish Scoreboard page
 - Work on Puzzle & Account pages
+    - In progress, please check work (Pamela)
 - Admin log-in doesn't currently work? Can we make Admin a T/F value on the player account, and adjust to fit?
     - I'm in favor of doing Admin as a T/F on the player account - it will just impact our ER diagram -Pamela
 - Figure out how admin stuff will work on webpage anyways
