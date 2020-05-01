@@ -41,7 +41,6 @@
             <li><a href="logout.php">Logout</a></li>
         </ul>
             <div class="column" id="profile">
-                <img src="pages/assets/profile.png" style="display: block; margin-left: auto; margin-right: auto; width: 30%">
                 <h3> Username: ' . $name . '</h3>
                 <h4> Player Score: '.$playerscore.' | Team Name: '.$teamname.' | Team Score: '.$teamscore.' </h4>
             </div>

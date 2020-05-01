@@ -10,12 +10,26 @@
     <?php
     require 'setup.php';
 
-    $puzzlelist =  "SELECT puzz_no, puzz_name, c_name, puzz_val, puzz_body FROM puzzle, p_belongs_to ORDER BY puzz_no DESC;";
-    $result = mysql_query($puzzlelist);
-    while($row = mysql_fetch_array($result)) {
-      echo "Puzzle #: ".$row['column1']." | Name: ".$row['column2']." | Category: ".$row['column3']." | Value: ".$row['column4'].;
-      echo "Puzzle: ".$row['column5'].;
+    if (empty($_SESSION['usernamev3'])) {
+    header('Location: login.php');
+    exit("You are not logged in. Redirecting..."); //Kicks off and automatically closes MySQL connection
     }
+    $username = htmlentities($_SESSION['usernamev3']);
+    $name = " ";
+    $getPuzzleInfo =  "SELECT puzz_no, puzz_name, c_name, puzz_val, puzz_body FROM puzzle, p_belongs_to ORDER BY puzz_no DESC;";
+
+    mysqli_stmt_execute($getPuzzleInfo);
+    while ($result = mysqli_stmt_get_result($getPuzzleInfo)) {	// echo "<p>Welcome to the logged in area, {$username}!</p>";
+      if ($row = mysqli_fetch_row($result)) {
+        $puzzlenum = $row[0];
+        $puzzlename = $row[1];
+        $catname = $row[2];
+        $puzzleval = $row[3];
+        $puzzlebody = $row[4];
+      }
+      echo "\nPuzzle #: ".$puzzlenum." | Name: ".$puzzlename." | Category: ".$puzzlecat." | Value: ".$puzzleval.;
+      echo "\nPuzzle: ".$puzzlebody.;
+  }
 
     if (isset($_POST["submitflag"]) and fieldExist()) {
       $checkFlag =  mysqli_prepare($ReaverDB, "SELECT puzz_flag FROM puzzle WHERE puzz_no=?;");
@@ -32,7 +46,7 @@
         echo "Flag is Correct!";
         //Add entry to solved by team and user
       } else {
-        echo "Flag is Incorrect. Try Again.";
+        echo "Username or password incorrect.";
       }
       mysqli_stmt_free_result($checkUser);
       mysqli_stmt_close($checkUser);
@@ -43,7 +57,17 @@
       <title>Puzzle Submission</title>
       <meta name="description" content="Logi!">
       <meta name="author" content="ReaverCTF"></head>
-      <body>';
+      <body>
+      <ul class="navbar">
+          <li><a href="puzzle.php">Puzzles</a></li>
+          <li><a href="account.php">Account</a></li>
+          <li><a href="scoreboard.php">Scoreboard</a></li>
+          <li><a href="logout.php">Logout</a></li>
+      </ul>
+      <div align = "center">
+      <h3> ReaverCTF Puzzles</h3>
+
+      </div>';
 
       echo '		<br />
           <br />
@@ -64,18 +88,6 @@
            </section>
           </div>';
     }
-
-    mysqli_close($ReaverDB);
     ?>
-    <ul class="navbar">
-        <li><a href="puzzle.php">Puzzles</a></li>
-        <li><a href="account.php">Account</a></li>
-        <li><a href="scoreboard.php">Scoreboard</a></li>
-        <li><a href="logout.php">Logout</a></li>
-    </ul>
-    <div align = "center">
-    <h3> ReaverCTF Puzzles</h3>
-
-    </div>
   </body>
 </html>
