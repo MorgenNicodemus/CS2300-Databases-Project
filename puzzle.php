@@ -27,8 +27,8 @@
         $puzzleval = $row[3];
         $puzzlebody = $row[4];
       }
-      echo "\nPuzzle #: ".$puzzlenum." | Name: ".$puzzlename." | Category: ".$puzzlecat." | Value: ".$puzzleval.;
-      echo "\nPuzzle: ".$puzzlebody.;
+      echo "\nPuzzle #: "."$puzzlenum"." | Name: "."$puzzlename"." | Category: "."$puzzlecat"." | Value: "."$puzzleval";
+      echo "\nPuzzle: "."$puzzlebody";
   }
 
     if (isset($_POST["submitflag"]) and fieldExist()) {

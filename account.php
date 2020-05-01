@@ -20,15 +20,20 @@
     mysqli_stmt_bind_param($getUserInfo, 's', $username);
 
     mysqli_stmt_execute($getUserInfo);
-    if ($result = mysqli_stmt_get_result($getUserInfo)) {	// echo "<p>Welcome to the logged in area, {$username}!</p>";
+
+    if ($result = mysqli_stmt_get_result($getUserInfo)) {
+      echo "here";	// echo "<p>Welcome to the logged in area, {$username}!</p>";
       if ($row = mysqli_fetch_row($result)) {
         $name = $row[0];
         $playerscore = $row[1];
         $teamname = $row[2];
         $teamscore = $row[3];
       }
+    else{
+      echo "Issue retrieving account";
+    }
+    echo "ello";
   }
-
     echo '    <body>
         <div align = "center">
         <h3> Account</h3>
@@ -41,8 +46,8 @@
             <li><a href="logout.php">Logout</a></li>
         </ul>
             <div class="column" id="profile">
-                <h3> Username: ' . $name . '</h3>
-                <h4> Player Score: '.$playerscore.' | Team Name: '.$teamname.' | Team Score: '.$teamscore.' </h4>
+                <h3> Username: ' . "$username" . '</h3>
+                <h4> Player Score: '."$playerscore".' | Team Name: '."$teamname".' | Team Score: '."$teamscore".' </h4>
             </div>
         </div>';
 ?>
