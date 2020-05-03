@@ -46,7 +46,7 @@
 
     if (isset($_POST["submitflag"]) and fieldExist()) {
       $checkFlag =  mysqli_prepare($ReaverDB, "SELECT puzz_flag FROM puzzle WHERE puzz_no=?;");
-      mysqli_stmt_bind_param($checkFlag, 's', $puzzlenumber);
+      mysqli_stmt_bind_param($checkFlag, 'i', $puzzlenumber);
 
       $puzzlenumber = $_POST["puzzlenumber"];
       $puzzleflag = $_POST["puzzleflag"];
@@ -60,26 +60,29 @@
 
         //add puzzle to team has solved list
         $checkFlag =  mysqli_prepare($ReaverDB, "INSERT into reaver.t_has_solved (t_name, puzz_no) values (?, ?)");
-        mysqli_stmt_bind_param($checkFlag, 'ss', $team, $puzzlenumber);
+        mysqli_stmt_bind_param($checkFlag, 'si', $team, $puzzlenumber);
         $team = $_POST["teamname"];
         $puzzlenumber = $_POST["puzzlenumber"];
         mysqli_stmt_execute($checkFlag);
 
         //increment team score
         $checkFlag =  mysqli_prepare($ReaverDB, "SELECT puzz_val FROM puzzle WHERE puzz_no = ?");
-        mysqli_stmt_bind_param($checkFlag, 's', $puzzlenumber);
+        mysqli_stmt_bind_param($checkFlag, 'i', $puzzlenumber);
         $puzzlenumber = $_POST["puzzlenumber"];
         mysqli_stmt_execute($checkFlag);
         mysqli_stmt_store_result($checkFlag);
         mysqli_stmt_bind_result($checkFlag, $puzzleValue);
         //mysqli_stmt_fetch($checkFlag);
         $checkFlag =  mysqli_prepare($ReaverDB, "UPDATE reaver.team SET (score = score + ?) WHERE t_name = ?");
-        mysqli_stmt_bind_param($checkFlag, 'ss', $puzzleValue, $puzzlenumber);
+        mysqli_stmt_bind_param($checkFlag, 'ii', $puzzleValue, $puzzlenumber);
         $puzzlenumber = $_POST["puzzlenumber"];
         mysqli_stmt_execute($checkFlag);
 
         //Adjust team rankings
-
+        //mysqli_prepare($ReaverDB, "SELECT t_name, score,
+                                            //RANK() OVER (ORDER BY score DESC) AS t_rank
+                                   //FROM reaver.team
+                                   //UPDATE "
       } else {
         echo "Flag is Incorrect.";
       }
