@@ -72,7 +72,7 @@
         mysqli_stmt_execute($checkFlag);
         mysqli_stmt_store_result($checkFlag);
         mysqli_stmt_bind_result($checkFlag, $puzzleValue);
-        //mysqli_stmt_fetch($checkFlag);
+        mysqli_stmt_fetch($checkFlag);
         $checkFlag =  mysqli_prepare($ReaverDB, "UPDATE reaver.team SET (score = score + ?) WHERE t_name = ?");
         mysqli_stmt_bind_param($checkFlag, 'ii', $puzzleValue, $puzzlenumber);
         $puzzlenumber = $_POST["puzzlenumber"];
