@@ -78,13 +78,34 @@
         $team = $_POST["teamname"];
         mysqli_stmt_execute($checkFlag);
 
+        //add puzzle to user has solved list
+        $checkFlag =  mysqli_prepare($ReaverDB, "INSERT into reaver.u_has_solved (u_name, p_number) values (?, ?)");
+        mysqli_stmt_bind_param($checkFlag, 'si', $username, $puzzlenumber);
+        $username = htmlentities($_SESSION['usernamev3']);
+        $puzzlenumber = $_POST["puzzlenumber"];
+        mysqli_stmt_execute($checkFlag);
+
+        //increment user score
+        $checkFlag =  mysqli_prepare($ReaverDB, "SELECT puzz_val FROM puzzle WHERE puzz_no = ?");
+        mysqli_stmt_bind_param($checkFlag, 'i', $puzzlenumber);
+        $puzzlenumber = $_POST["puzzlenumber"];
+        mysqli_stmt_execute($checkFlag);
+        mysqli_stmt_store_result($checkFlag);
+        mysqli_stmt_bind_result($checkFlag, $puzzleValue);
+        mysqli_stmt_fetch($checkFlag);
+        $checkFlag =  mysqli_prepare($ReaverDB, "UPDATE reaver.player SET score = score + ? WHERE user_name = ?");
+        mysqli_stmt_bind_param($checkFlag, 'is', $puzzleValue, $username);
+        $username = htmlentities($_SESSION['usernamev3']);
+        mysqli_stmt_execute($checkFlag);
+
         //Adjust team rankings
         $checkFlag = mysqli_prepare($ReaverDB, "SELECT t_name, score,
                                             RANK() OVER (ORDER BY score DESC) AS t_rank
                                    FROM reaver.team");
         $result = mysqli_query($checkFlag);
         while($row = mysqli_fetch_array($result)) {
-          $checkFlag = mysqli_prepare($ReaverDB, "UPDATE reaver.team SET 'rank' = $row['t_rank']");
+          $checkFlag = mysqli_prepare($ReaverDB, "UPDATE reaver.team SET 'rank' = ? WHERE t_name = ?");
+          mysqli_stmt_bind_param($checkFlag, 'is', $row['t_rank'], $row['t_name']);
           mysqli_stmt_execute($checkFlag);
         }
 
