@@ -55,7 +55,7 @@
       mysqli_stmt_store_result($checkFlag);
       mysqli_stmt_bind_result($checkFlag, $flagResult);
       mysqli_stmt_fetch($checkFlag);
-      if (password_verify($_POST["puzzleflag"], $flagResult)) {
+      if ($_POST["puzzleflag"] == $flagResult) {
         echo "Flag is Correct!";
 
         //add puzzle to team has solved list
