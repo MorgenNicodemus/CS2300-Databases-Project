@@ -98,7 +98,7 @@
         <form name = "submitflag" action = "puzzle.php" method = "post">
         <ul>
             <li> <label for = "puzzlenumber"> Puzzle Number </label>
-                <input type = "integer" name = "puzzlenumber" placeholder = "Puzzle Number" required> </li>
+                <input type = "number" name = "puzzlenumber" placeholder = "Puzzle Number" required> </li>
             <br />
            <li> <label for = "puzzleflag"> Flag </label>
             <input type = "text" name = "puzzleflag" placeholder = "reaverCTF{flag}" required> </li>
