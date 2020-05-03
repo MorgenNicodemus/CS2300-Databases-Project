@@ -7,15 +7,6 @@
       <link rel="stylesheet" href="assets/main.css">
   </head>
   <body>
-    <?php
-    require 'setup.php';
-
-    $scoreboard =  "SELECT t_name, score rank()over( ORDER BY score DESC ) t_rank FROM team;";
-    $result = mysqli_query($scoreboard);
-    while($row = mysqli_fetch_array($result)) {
-      echo "Rank: ".$row['t_rank']."Team: ".$row['t_name']." | ".$row['score'];
-    }
-    ?>
     <ul class="navbar">
         <li><a href="puzzle.php">Puzzles</a></li>
         <li><a href="account.php">Account</a></li>
@@ -26,5 +17,14 @@
     <h3> Scoreboard</h3>
 
     </div>
+    <?php
+    require 'setup.php';
+
+    $scoreboard =  "SELECT t_name, score rank()over( ORDER BY 'rank' ASC ) t_rank FROM reaver.team;";
+    $result = mysqli_query($scoreboard);
+    while($row = mysqli_fetch_array($result)) {
+      echo "Rank: ".$row['t_rank']."Team: ".$row['t_name']." | ".$row['score'];
+    }
+    ?>
   </body>
 </html>
