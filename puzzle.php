@@ -74,8 +74,8 @@
         mysqli_stmt_bind_result($checkFlag, $puzzleValue);
         mysqli_stmt_fetch($checkFlag);
         $checkFlag =  mysqli_prepare($ReaverDB, "UPDATE reaver.team SET score = score + ? WHERE t_name = ?");
-        mysqli_stmt_bind_param($checkFlag, 'is', $puzzleValue, $puzzlenumber);
-        $puzzlenumber = $_POST["puzzlenumber"];
+        mysqli_stmt_bind_param($checkFlag, 'is', $puzzleValue, $teamname);
+        $team = $_POST["teamname"];
         mysqli_stmt_execute($checkFlag);
 
         //Adjust team rankings (note- this may need to be done in CTE view, not directly to the table)
