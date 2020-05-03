@@ -71,7 +71,7 @@
         $name = $_POST["username"];
         $team = $_POST["teamname"];
 
-        if(mysqli_stmt_execute($checkTeam)) {
+        if(mysqli_stmt_execute($addToTeam)) {
              echo "User added to team";
              header("location: login.php");
         } else {
@@ -87,7 +87,7 @@
         $name = $_POST["username"];
         $team = $_POST["teamname"];
 
-        if(mysqli_stmt_execute($checkTeam)) {
+        if(mysqli_stmt_execute($addToTeam)) {
              echo "User added to team";
              header("location: login.php");
         } else {
