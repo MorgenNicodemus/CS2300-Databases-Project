@@ -79,11 +79,14 @@
         mysqli_stmt_execute($checkFlag);
 
         //Adjust team rankings (note- this may need to be done in CTE view, not directly to the table)
-        $checkFlag = mysqli_prepare($ReaverDB, "WITH CTE AS(SELECT t_name, score,
+        $checkFlag = mysqli_prepare($ReaverDB, "SELECT t_name, score,
                                             RANK() OVER (ORDER BY score DESC) AS t_rank
-                                   FROM reaver.team)
-                                   UPDATE CTE SET 'rank' = t_rank");
-        mysqli_stmt_execute($checkFlag);
+                                   FROM reaver.team");
+        $result = mysqli_query($checkFlag);
+        while($row = mysqli_fetch_array($result)) {
+          $checkFlag = mysqli_prepare(ReaverDB, "UPDATE reaver.team SET rank = $row['t_rank']");
+          mysqli_stmt_execute($checkFlag);
+        }
 
       } else {
         echo "Flag is Incorrect.";
