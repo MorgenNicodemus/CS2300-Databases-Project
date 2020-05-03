@@ -38,8 +38,9 @@
     $result = mysqli_query($ReaverDB, $getPuzzleInfo);
 
     if (mysqli_num_rows($result) > 0) {
+        echo "<h2>Puzzles</h2>"
       while($row = mysqli_fetch_assoc($result)) {
-        echo $row["c_name"] . "\r\n" . $row["puzz_name"] . "\r\n" . $row["puzz_val"];
+        echo "<br>Puzzle Number " .$row["puzz_no"]." | ".$row["c_name"] . " | " . $row["puzz_name"] . " | " . $row["puzz_val"] . " Points | ".$row["puzz_body"].;
       }
     }
 
@@ -56,12 +57,34 @@
       mysqli_stmt_fetch($checkFlag);
       if (password_verify($_POST["puzzleflag"], $flagResult)) {
         echo "Flag is Correct!";
-        //Add entry to solved by team and user
+
+        //add puzzle to team has solved list
+        $checkFlag =  mysqli_prepare($ReaverDB, "INSERT into reaver.t_has_solved (t_name, puzz_no) values (?, ?)");
+        mysqli_stmt_bind_param($checkFlag, 'ss', $team, $puzzlenumber);
+        $team = $_POST["teamname"];
+        $puzzlenumber = $_POST["puzzlenumber"];
+        mysqli_stmt_execute($checkFlag);
+
+        //increment team score
+        $checkFlag =  mysqli_prepare($ReaverDB, "SELECT puzz_val FROM puzzle WHERE puzz_no = ?");
+        mysqli_stmt_bind_param($checkFlag, 's', $puzzlenumber);
+        $puzzlenumber = $_POST["puzzlenumber"];
+        mysqli_stmt_execute($checkFlag);
+        mysqli_stmt_store_result($checkFlag);
+        mysqli_stmt_bind_result($checkFlag, $puzzleValue);
+        //mysqli_stmt_fetch($checkFlag);
+        $checkFlag =  mysqli_prepare($ReaverDB, "UPDATE reaver.team SET (score = score + ?) WHERE t_name = ?");
+        mysqli_stmt_bind_param($checkFlag, 'ss', $puzzleValue, $puzzlenumber);
+        $puzzlenumber = $_POST["puzzlenumber"];
+        mysqli_stmt_execute($checkFlag);
+
+        //Adjust team rankings
+
       } else {
-        echo "Username or password incorrect.";
+        echo "Flag is Incorrect.";
       }
-      mysqli_stmt_free_result($checkUser);
-      mysqli_stmt_close($checkUser);
+      mysqli_stmt_free_result($checkFlag);
+      mysqli_stmt_close($checkFlag);
     } else {
       echo '
         <div align = "center">
@@ -74,6 +97,9 @@
             <br />
            <li> <label for = "puzzleflag"> Flag </label>
             <input type = "text" name = "puzzleflag" placeholder = "reaverCTF{flag}" required> </li>
+            <br />
+           <li> <label for = "teamname"> Team Name </label>
+            <input type = "text" name = "teamname" placeholder = "Team Name" required> </li>
             <br />
             <li> <input type="submit" value="Submit Flag" name="flagsubmit"> </li>
             </ul>
