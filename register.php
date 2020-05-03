@@ -51,7 +51,7 @@
 
       //Create a new team
   		if (!mysqli_num_rows($t_result)) {
-  			$checkTeam =  mysqli_prepare($ReaverDB, "INSERT into reaver.team t_name values ?");
+  			$checkTeam =  mysqli_prepare($ReaverDB, "INSERT into reaver.team (t_name) values (?)");
   			mysqli_stmt_bind_param($checkTeam, 's', $team);
 
   			$team = $_POST["teamname"];
