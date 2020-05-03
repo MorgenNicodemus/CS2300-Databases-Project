@@ -11,7 +11,7 @@
     require 'setup.php';
     if (empty($_SESSION['usernamev3'])) {
     header('Location: login.php');
-    exit("You are not logged in. Redirecting..."); //Kicks off and automatically closes MySQL connection
+    exit("You are not logged in. Redirecting...");
     }
     if (!$ReaverDB) {
         die("Connection failed: " . mysqli_connect_error());
@@ -19,30 +19,34 @@
 
     $username = htmlentities($_SESSION['usernamev3']);
     $name = " ";
-    $getUserInfo =  "SELECT * FROM player WHERE user_name=\"?\";";
-    mysqli_stmt_bind_param($getUserInfo, 's', $username);
 
-
-    //mysqli_stmt_execute($getUserInfo);
-
-    $result = mysqli_query($ReaverDB,$getUserInfo);//mysqli_stmt_get_result($getUserInfo);
-    echo gettype($result);
-    if(mysqli_num_rows($result) >= 0) {
-      $row = mysqli_fetch_object($result);
-      echo $row->user_name;
-      echo "here";	// echo "<p>Welcome to the logged in area, {$username}!</p>";
-      while ($row = mysqli_fetch_object($result)) {
-        echo "here";
-        vardump($row);
-        //$name = $row[0];
-        //$playerscore = $row[1];
-        //$teamname = $row[2];
-        //$teamscore = $row[3];
-      }
+    $getScore = mysqli_stmt_init($ReaverDB);
+    if(mysqli_stmt_prepare($getScore,"SELECT score FROM player WHERE user_name=?;")){
+      mysqli_stmt_bind_param($getScore, "s", $username);
+      mysqli_stmt_execute($getScore);
+      mysqli_stmt_bind_result($getScore,$score);
+      mysqli_stmt_fetch($getScore);
+      mysqli_stmt_close($getScore);
     }
-    else{
-      echo "Issue retrieving account";
+
+    $getTeam = mysqli_stmt_init($ReaverDB);
+    if(mysqli_stmt_prepare($getTeam,"SELECT t_name FROM u_belongs_to, player WHERE user_name=? and player.user_name = u_belongs_to.u_name;")){
+      mysqli_stmt_bind_param($getTeam, "s", $username);
+      mysqli_stmt_execute($getTeam);
+      mysqli_stmt_bind_result($getTeam,$team);
+      mysqli_stmt_fetch($getTeam);
+      mysqli_stmt_close($getTeam);
     }
+
+    $getTeamS = mysqli_stmt_init($ReaverDB);
+    if(mysqli_stmt_prepare($getTeamS,"SELECT score FROM team WHERE t_name=?;")){
+      mysqli_stmt_bind_param($getTeamS, "s", $team);
+      mysqli_stmt_execute($getTeamS);
+      mysqli_stmt_bind_result($getTeamS,$teamS);
+      mysqli_stmt_fetch($getTeamS);
+      mysqli_stmt_close($getTeamS);
+    }
+
     echo '    <body>
         <div align = "center">
         <h3> Account</h3>
@@ -56,9 +60,29 @@
         </ul>
             <div class="column" id="profile">
                 <h3> Username: ' . "$username" . '</h3>
-                <h4> Player Score: '."$row[1]".' | Team Name: '."$row[2]".' | Team Score: '."$row[3]".' </h4>
+                <h4> Player Score: '."$score".' | Team Name: '."$team".' | Team Score: '."$teamS".' </h4>
             </div>
         </div>';
+
+
+            //$getUserInfo =  "SELECT score FROM player;"//WHERE user_name=\"?\";";
+            //mysqli_stmt_bind_param($getUserInfo, 's', $username);
+
+            //mysqli_stmt_execute($getUserInfo);
+
+            //$result = mysqli_query($ReaverDB,$getUserInfo);//mysqli_stmt_get_result($getUserInfo);
+            //echo gettype($result);
+            //if(mysqli_num_rows($result) >= 0) {
+            //  $row = mysqli_fetch_object($result);
+            //  echo $row["score"];
+            //  echo "heresa";	// echo "<p>Welcome to the logged in area, {$username}!</p>";
+            //  while ($row = mysqli_fetch_object($result)) {
+            //    echo "here";
+                //$name = $row[0];
+                //$playerscore = $row[1];
+                //$teamname = $row[2];
+                //$teamscore = $row[3];
+            //  }
 ?>
     </body>
 </html>
