@@ -16,11 +16,12 @@
     if (!$ReaverDB) {
         die("Connection failed: " . mysqli_connect_error());
     }
+
+    $username = htmlentities($_SESSION['usernamev3']);
     $name = " ";
     $getUserInfo =  "SELECT * FROM player WHERE user_name=\"?\";";
     mysqli_stmt_bind_param($getUserInfo, 's', $username);
 
-    $username = htmlentities($_SESSION['usernamev3']);
 
     //mysqli_stmt_execute($getUserInfo);
 
@@ -54,8 +55,8 @@
             <li><a href="logout.php">Logout</a></li>
         </ul>
             <div class="column" id="profile">
-                <h3> Username: ' . "$name" . '</h3>
-                <h4> Player Score: '."$playerscore".' | Team Name: '."$teamname".' | Team Score: '."$teamscore".' </h4>
+                <h3> Username: ' . "$username" . '</h3>
+                <h4> Player Score: '."$row[1]".' | Team Name: '."$row[2]".' | Team Score: '."$row[3]".' </h4>
             </div>
         </div>';
 ?>
