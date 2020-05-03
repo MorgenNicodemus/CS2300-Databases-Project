@@ -44,7 +44,7 @@
       }
     }
 
-    if (isset($_POST["submitflag"]) {
+    if (isset($_POST["submitflag"])) {
       $checkFlag =  mysqli_prepare($ReaverDB, "SELECT puzz_flag FROM puzzle WHERE puzz_no=?;");
       mysqli_stmt_bind_param($checkFlag, 'i', $puzzlenumber);
 
