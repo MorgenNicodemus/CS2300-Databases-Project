@@ -84,7 +84,7 @@
                                    FROM reaver.team");
         $result = mysqli_query($checkFlag);
         while($row = mysqli_fetch_array($result)) {
-          $checkFlag = mysqli_prepare(ReaverDB, "UPDATE reaver.team SET 'rank' = $row['t_rank']");
+          $checkFlag = mysqli_prepare($ReaverDB, "UPDATE reaver.team SET 'rank' = $row['t_rank']");
           mysqli_stmt_execute($checkFlag);
         }
 
