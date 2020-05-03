@@ -115,16 +115,20 @@
   						<input type = "text" name = "username" placeholder = "Username" required > </li>
   				<br />
 
-  				<!-- <li> <label for = "teamname"> Team Name </label> -->
-  				<!-- <input type = "text" name = "teamname" placeholder = "Team Name" required > -->
-
   				<div id = "passwordError"></div>
   			 <li> <label for = "password"> Password </label>
+
   				<input type = "password" name = "password" placeholder = "Password" id="password" > </li>
   				<br />
+
   				<li> <label for = "confirmpassword"> Confirm Password </label>
   				<input type = "password" name = "passwrd" placeholder = "Confirm Password" id = "confirmPassword" > </li>
   				<br />
+
+          <li> <label for = "teamname"> Team Name </label>
+  				<input type = "text" name = "teamname" placeholder = "Team Name" required >
+          <br />
+          
   				<li> <input type="submit" value="Register" name="register"> </li>
   				</ul>
           </form>
