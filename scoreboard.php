@@ -11,8 +11,8 @@
     require 'setup.php';
 
     $scoreboard =  "SELECT t_name, score FROM team ORDER BY score DESC;";
-    $result = mysql_query($scoreboard);
-    while($row = mysql_fetch_array($result)) {
+    $result = mysqli_query($scoreboard);
+    while($row = mysqli_fetch_array($result)) {
       echo "Team: ".$row['column1']." | ".$row['column2'];
     }
     ?>

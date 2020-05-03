@@ -65,7 +65,7 @@
     		 </section>
     		</div>';
 		echo '<form action="register.php">I don\'t have an account. <input type="submit" value="Take me to registration!" /></form>';
-    echo '<form action="adminlogin.php">I\'m a ReaverCTF Admin. <input type="submit" value="Take me to Admin Login!" /></form>';
+    
 	}
 
 	mysqli_close($ReaverDB);

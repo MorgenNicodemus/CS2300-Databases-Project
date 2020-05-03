@@ -13,27 +13,35 @@
     header('Location: login.php');
     exit("You are not logged in. Redirecting..."); //Kicks off and automatically closes MySQL connection
     }
-
-    $username = htmlentities($_SESSION['usernamev3']);
+    if (!$ReaverDB) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     $name = " ";
-    $getUserInfo =  "SELECT user_name, player.score, t_name, team.score FROM player, u_belongs_to, team WHERE player.user_name = ?;";
+    $getUserInfo =  "SELECT * FROM player WHERE user_name=\"?\";";
     mysqli_stmt_bind_param($getUserInfo, 's', $username);
 
-    mysqli_stmt_execute($getUserInfo);
+    $username = htmlentities($_SESSION['usernamev3']);
 
-    if ($result = mysqli_stmt_get_result($getUserInfo)) {
+    //mysqli_stmt_execute($getUserInfo);
+
+    $result = mysqli_query($ReaverDB,$getUserInfo);//mysqli_stmt_get_result($getUserInfo);
+    echo gettype($result);
+    if(mysqli_num_rows($result) >= 0) {
+      $row = mysqli_fetch_object($result);
+      echo $row->user_name;
       echo "here";	// echo "<p>Welcome to the logged in area, {$username}!</p>";
-      if ($row = mysqli_fetch_row($result)) {
-        $name = $row[0];
-        $playerscore = $row[1];
-        $teamname = $row[2];
-        $teamscore = $row[3];
+      while ($row = mysqli_fetch_object($result)) {
+        echo "here";
+        vardump($row);
+        //$name = $row[0];
+        //$playerscore = $row[1];
+        //$teamname = $row[2];
+        //$teamscore = $row[3];
       }
+    }
     else{
       echo "Issue retrieving account";
     }
-    echo "ello";
-  }
     echo '    <body>
         <div align = "center">
         <h3> Account</h3>
@@ -46,7 +54,7 @@
             <li><a href="logout.php">Logout</a></li>
         </ul>
             <div class="column" id="profile">
-                <h3> Username: ' . "$username" . '</h3>
+                <h3> Username: ' . "$name" . '</h3>
                 <h4> Player Score: '."$playerscore".' | Team Name: '."$teamname".' | Team Score: '."$teamscore".' </h4>
             </div>
         </div>';

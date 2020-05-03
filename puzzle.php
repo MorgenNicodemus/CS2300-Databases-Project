@@ -12,24 +12,20 @@
 
     if (empty($_SESSION['usernamev3'])) {
     header('Location: login.php');
-    exit("You are not logged in. Redirecting..."); //Kicks off and automatically closes MySQL connection
+    exit("You are not logged in. Redirecting...");
     }
     $username = htmlentities($_SESSION['usernamev3']);
     $name = " ";
-    $getPuzzleInfo =  "SELECT puzz_no, puzz_name, c_name, puzz_val, puzz_body FROM puzzle, p_belongs_to ORDER BY puzz_no DESC;";
+    $getPuzzleInfo =  "SELECT puzz_no, puzz_name, c_name, puzz_val, puzz_body FROM puzzle, p_belongs_to WHERE puzzle.puzz_no = p_belongs_to.p_no ORDER BY puzz_no DESC;";
 
-    mysqli_stmt_execute($getPuzzleInfo);
-    while ($result = mysqli_stmt_get_result($getPuzzleInfo)) {	// echo "<p>Welcome to the logged in area, {$username}!</p>";
-      if ($row = mysqli_fetch_row($result)) {
-        $puzzlenum = $row[0];
-        $puzzlename = $row[1];
-        $catname = $row[2];
-        $puzzleval = $row[3];
-        $puzzlebody = $row[4];
+    //if(mysqli_stmt_execute($getPuzzleInfo));
+    $result = mysqli_query($ReaverDB, $getPuzzleInfo);
+
+    if (mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)) {
+        echo $row["c_name"] . "\r\n" . $row["puzz_name"] . "\r\n" . $row["puzz_val"];
       }
-      echo "\nPuzzle #: "."$puzzlenum"." | Name: "."$puzzlename"." | Category: "."$puzzlecat"." | Value: "."$puzzleval";
-      echo "\nPuzzle: "."$puzzlebody";
-  }
+    }
 
     if (isset($_POST["submitflag"]) and fieldExist()) {
       $checkFlag =  mysqli_prepare($ReaverDB, "SELECT puzz_flag FROM puzzle WHERE puzz_no=?;");
@@ -87,6 +83,7 @@
            </form>
            </section>
           </div>';
+          
     }
     ?>
   </body>

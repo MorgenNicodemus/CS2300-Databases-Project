@@ -74,7 +74,7 @@
 ';
 
 		echo '<form action="login.php">I already have an account.<input type="submit" value="Take me to login!" /></form>';
-    echo '<form action="adminlogin.php">I already have an ADMIN account.<input type="submit" value="Take me to admin login!" /></form>';
+    
 	}
 
 	mysqli_close($ReaverDB);
