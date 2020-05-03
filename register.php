@@ -39,68 +39,67 @@
       } else {
         echo "Issue occured, please try again";
       }
+      //Creating a team
+      $checkTeam =  mysqli_prepare($ReaverDB, "SELECT t_name from reaver.team where t_name=?;");
+  		mysqli_stmt_bind_param($checkUser, 's', $team);
+
+  		$team = $_POST["teamname"];
+  		mysqli_stmt_execute($checkTeam);
+  		$t_result = mysqli_stmt_get_result($checkTeam);
+
+      //Create a new team
+  		if (!mysqli_num_rows($t_result)) {
+  			$checkTeam =  mysqli_prepare($ReaverDB, "INSERT into reaver.team t_name values ?");
+  			mysqli_stmt_bind_param($checkTeam, 's', $team);
+
+  			$team = $_POST["teamname"];
+
+        if(mysqli_stmt_execute($checkTeam)) {
+  			     echo "Team created";
+             header("location: login.php");
+        } else {
+          echo "Issue occured, please try again";
+        }
+        //Add user to the new team
+        $addToTeam = mysqli_prepare($ReaverDB, "INSERT into reaver.u_belongs_to (u_name, t_name) values (?, ?)");
+        mysqli_stmt_bind_param($addToTeam, 'ss', $name, $team);
+
+        $name = $_POST["username"];
+        $team = $_POST["teamname"];
+
+        if(mysqli_stmt_execute($checkTeam)) {
+             echo "User added to team";
+             header("location: login.php");
+        } else {
+          echo "Issue occured, please try again";
+        }
+
+  		} else {
+  			echo "Team already exists";
+        //Add user to the existing team
+        $addToTeam = mysqli_prepare($ReaverDB, "INSERT into reaver.u_belongs_to (u_name, t_name) values (?, ?)");
+        mysqli_stmt_bind_param($addToTeam, 'ss', $name, $team);
+
+        $name = $_POST["username"];
+        $team = $_POST["teamname"];
+
+        if(mysqli_stmt_execute($checkTeam)) {
+             echo "User added to team";
+             header("location: login.php");
+        } else {
+          echo "Issue occured, please try again";
+        }
+  		}
+  		mysqli_stmt_free_result($checkTeam);
+  		mysqli_stmt_close($checkTeam);
+      mysqli_stmt_free_result($addToTeam);
+  		mysqli_stmt_close($addToTeam);
 
 		} else {
 			echo "Username already in use.";
 		}
 		mysqli_stmt_free_result($checkUser);
-		mysqli_stmt_close($checkUser);
-
-    //Creating a team
-    $checkTeam =  mysqli_prepare($ReaverDB, "SELECT t_name from reaver.team where t_name=?;");
-		mysqli_stmt_bind_param($checkUser, 's', $team);
-
-		$team = $_POST["teamname"];
-		mysqli_stmt_execute($checkTeam);
-		$t_result = mysqli_stmt_get_result($checkTeam);
-
-    //Create a new team
-		if (!mysqli_num_rows($t_result)) {
-			$checkTeam =  mysqli_prepare($ReaverDB, "INSERT into reaver.team t_name values ?");
-			mysqli_stmt_bind_param($checkTeam, 's', $team);
-
-			$team = $_POST["teamname"];
-
-      if(mysqli_stmt_execute($checkTeam)) {
-			     echo "Team created";
-           header("location: login.php");
-      } else {
-        echo "Issue occured, please try again";
-      }
-      //Add user to the new team
-      $addToTeam = mysqli_prepare($ReaverDB, "INSERT into reaver.u_belongs_to (u_name, t_name) values (?, ?)");
-      mysqli_stmt_bind_param($addToTeam, 'ss', $name, $team);
-
-      $name = $_POST["username"];
-      $team = $_POST["teamname"];
-
-      if(mysqli_stmt_execute($checkTeam)) {
-           echo "User added to team";
-           header("location: login.php");
-      } else {
-        echo "Issue occured, please try again";
-      }
-
-		} else {
-			echo "Team already exists";
-      //Add user to the existing team
-      $addToTeam = mysqli_prepare($ReaverDB, "INSERT into reaver.u_belongs_to (u_name, t_name) values (?, ?)");
-      mysqli_stmt_bind_param($addToTeam, 'ss', $name, $team);
-
-      $name = $_POST["username"];
-      $team = $_POST["teamname"];
-
-      if(mysqli_stmt_execute($checkTeam)) {
-           echo "User added to team";
-           header("location: login.php");
-      } else {
-        echo "Issue occured, please try again";
-      }
-		}
-		mysqli_stmt_free_result($checkTeam);
-		mysqli_stmt_close($checkTeam);
-    mysqli_stmt_free_result($addToTeam);
-		mysqli_stmt_close($addToTeam);
+		mysqli_stmt_close($checkUser);  
 
 	} else {
       echo '<div align = "center">
@@ -128,7 +127,7 @@
           <li> <label for = "teamname"> Team Name </label>
   				<input type = "text" name = "teamname" placeholder = "Team Name" required >
           <br />
-          
+
   				<li> <input type="submit" value="Register" name="register"> </li>
   				</ul>
           </form>
