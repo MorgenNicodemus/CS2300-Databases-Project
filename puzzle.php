@@ -105,7 +105,9 @@
         $result = mysqli_query($checkFlag);
         while($row = mysqli_fetch_array($result)) {
           $checkFlag = mysqli_prepare($ReaverDB, "UPDATE reaver.team SET 'rank' = ? WHERE t_name = ?");
-          mysqli_stmt_bind_param($checkFlag, 'is', $row['t_rank'], $row['t_name']);
+          mysqli_stmt_bind_param($checkFlag, 'is', $rank, $team);
+          $rank = $row['t_rank'];
+          $team = $row['t_name'];
           mysqli_stmt_execute($checkFlag);
         }
 
