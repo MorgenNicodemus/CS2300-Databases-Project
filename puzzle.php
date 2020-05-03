@@ -88,6 +88,8 @@
       }
       mysqli_stmt_free_result($checkFlag);
       mysqli_stmt_close($checkFlag);
+
+
     } else {
       echo '
         <div align = "center">
@@ -104,7 +106,7 @@
            <li> <label for = "teamname"> Team Name </label>
             <input type = "text" name = "teamname" placeholder = "Team Name" required> </li>
             <br />
-            <li> <input type="submit" value="Submit Flag" name="flagsubmit"> </li>
+            <li> <input type="submit" value="Submit Flag" name="submitflag"> </li>
             </ul>
          </form>
          </section>
