@@ -78,13 +78,13 @@
         $team = $_POST["teamname"];
         mysqli_stmt_execute($checkFlag);
 
-        //Adjust team rankings (note- this may need to be done in CTE view, not directly to the table)
+        //Adjust team rankings
         $checkFlag = mysqli_prepare($ReaverDB, "SELECT t_name, score,
                                             RANK() OVER (ORDER BY score DESC) AS t_rank
                                    FROM reaver.team");
         $result = mysqli_query($checkFlag);
         while($row = mysqli_fetch_array($result)) {
-          $checkFlag = mysqli_prepare(ReaverDB, "UPDATE reaver.team SET rank = $row['t_rank']");
+          $checkFlag = mysqli_prepare(ReaverDB, "UPDATE reaver.team SET 'rank' = $row['t_rank']");
           mysqli_stmt_execute($checkFlag);
         }
 
