@@ -7,6 +7,22 @@
       <link rel="stylesheet" href="assets/main.css">
   </head>
   <body>
+    <!DOCTYPE HTML>
+    <html>
+    <head><meta charset="utf-8">
+    <title>Puzzle Submission</title>
+    <meta name="description" content="Logi!">
+    <meta name="author" content="ReaverCTF"></head>
+    <body>
+    <ul class="navbar">
+        <li><a href="puzzle.php">Puzzles</a></li>
+        <li><a href="account.php">Account</a></li>
+        <li><a href="scoreboard.php">Scoreboard</a></li>
+        <li><a href="logout.php">Logout</a></li>
+    </ul>
+    <div align = "center">
+    <h3> ReaverCTF Puzzles</h3>
+    </div>
     <?php
     require 'setup.php';
 
@@ -47,22 +63,7 @@
       mysqli_stmt_free_result($checkUser);
       mysqli_stmt_close($checkUser);
     } else {
-      echo '<!DOCTYPE HTML>
-      <html>
-      <head><meta charset="utf-8">
-      <title>Puzzle Submission</title>
-      <meta name="description" content="Logi!">
-      <meta name="author" content="ReaverCTF"></head>
-      <body>
-      <ul class="navbar">
-          <li><a href="puzzle.php">Puzzles</a></li>
-          <li><a href="account.php">Account</a></li>
-          <li><a href="scoreboard.php">Scoreboard</a></li>
-          <li><a href="logout.php">Logout</a></li>
-      </ul>
-      <div align = "center">
-      <h3> ReaverCTF Puzzles</h3>
-      </div>
+      echo '
         <div align = "center">
         <h2> Submit your puzzle here. </h2>
         <section class = "submitaflag">
