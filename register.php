@@ -39,6 +39,8 @@
       } else {
         echo "Issue occured, please try again";
       }
+      mysqli_stmt_free_result($checkUser);
+  		mysqli_stmt_close($checkUser);
       //Creating a team
       $checkTeam =  mysqli_prepare($ReaverDB, "SELECT t_name from reaver.team where t_name=?;");
   		mysqli_stmt_bind_param($checkUser, 's', $team);
@@ -60,6 +62,8 @@
         } else {
           echo "Issue occured, please try again";
         }
+        mysqli_stmt_free_result($checkTeam);
+        mysqli_stmt_close($checkTeam);
         //Add user to the new team
         $addToTeam = mysqli_prepare($ReaverDB, "INSERT into reaver.u_belongs_to (u_name, t_name) values (?, ?)");
         mysqli_stmt_bind_param($addToTeam, 'ss', $name, $team);
@@ -90,16 +94,12 @@
           echo "Issue occured, please try again";
         }
   		}
-  		mysqli_stmt_free_result($checkTeam);
-  		mysqli_stmt_close($checkTeam);
       mysqli_stmt_free_result($addToTeam);
   		mysqli_stmt_close($addToTeam);
 
 		} else {
 			echo "Username already in use.";
 		}
-		mysqli_stmt_free_result($checkUser);
-		mysqli_stmt_close($checkUser);  
 
 	} else {
       echo '<div align = "center">
