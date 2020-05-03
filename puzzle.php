@@ -59,7 +59,7 @@
         echo "Flag is Correct!";
 
         //add puzzle to team has solved list
-        $checkFlag =  mysqli_prepare($ReaverDB, "INSERT into reaver.t_has_solved (t_name, puzz_no) values (?, ?)");
+        $checkFlag =  mysqli_prepare($ReaverDB, "INSERT into reaver.t_has_solved (t_name, p_number) values (?, ?)");
         mysqli_stmt_bind_param($checkFlag, 'si', $team, $puzzlenumber);
         $team = $_POST["teamname"];
         $puzzlenumber = $_POST["puzzlenumber"];
