@@ -38,7 +38,7 @@
     $result = mysqli_query($ReaverDB, $getPuzzleInfo);
 
     if (mysqli_num_rows($result) > 0) {
-        echo "<h1>Puzzles</h1>"
+        echo "<h2>Puzzles</h2>"
       while($row = mysqli_fetch_assoc($result)) {
         echo "<br>Puzzle Number " .$row["puzz_no"]." | ".$row["c_name"] . " | " . $row["puzz_name"] . " | " . $row["puzz_val"] . " Points | ".$row["puzz_body"].;
       }
