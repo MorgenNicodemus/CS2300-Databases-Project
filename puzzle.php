@@ -62,28 +62,23 @@
       </ul>
       <div align = "center">
       <h3> ReaverCTF Puzzles</h3>
-
-      </div>';
-
-      echo '		<br />
-          <br />
-          <div align = "center">
-          <h2> Submit your puzzle here. </h2>
-          <section class = "submitaflag">
-          <form name = "submitflag" action = "puzzle.php" method = "post">
-          <ul>
-              <li> <label for = "puzzlenumber"> Puzzle Number </label>
-                  <input type = "integer" name = "puzzlenumber" placeholder = "Puzzle Number" required> </li>
-              <br />
-             <li> <label for = "puzzleflag"> Flag </label>
-              <input type = "text" name = "puzzleflag" placeholder = "reaverCTF{flag}" required> </li>
-              <br />
-              <li> <input type="submit" value="Submit Flag" name="flagsubmit"> </li>
-              </ul>
-           </form>
-           </section>
-          </div>';
-          
+      </div>
+        <div align = "center">
+        <h2> Submit your puzzle here. </h2>
+        <section class = "submitaflag">
+        <form name = "submitflag" action = "puzzle.php" method = "post">
+        <ul>
+            <li> <label for = "puzzlenumber"> Puzzle Number </label>
+                <input type = "integer" name = "puzzlenumber" placeholder = "Puzzle Number" required> </li>
+            <br />
+           <li> <label for = "puzzleflag"> Flag </label>
+            <input type = "text" name = "puzzleflag" placeholder = "reaverCTF{flag}" required> </li>
+            <br />
+            <li> <input type="submit" value="Submit Flag" name="flagsubmit"> </li>
+            </ul>
+         </form>
+         </section>
+        </div>';
     }
     ?>
   </body>
