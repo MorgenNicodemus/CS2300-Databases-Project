@@ -10,7 +10,7 @@
     <?php
     require 'setup.php';
 
-    $scoreboard =  "SELECT t_name, score FROM team ORDER BY score DESC;";
+    $scoreboard =  "SELECT t_name, score rank()over( ORDER BY score DESC ) t_rank FROM team;";
     $result = mysqli_query($scoreboard);
     while($row = mysqli_fetch_array($result)) {
       echo "Team: ".$row['column1']." | ".$row['column2'];
