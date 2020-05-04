@@ -64,25 +64,6 @@
             </div>
         </div>';
 
-
-            //$getUserInfo =  "SELECT score FROM player;"//WHERE user_name=\"?\";";
-            //mysqli_stmt_bind_param($getUserInfo, 's', $username);
-
-            //mysqli_stmt_execute($getUserInfo);
-
-            //$result = mysqli_query($ReaverDB,$getUserInfo);//mysqli_stmt_get_result($getUserInfo);
-            //echo gettype($result);
-            //if(mysqli_num_rows($result) >= 0) {
-            //  $row = mysqli_fetch_object($result);
-            //  echo $row["score"];
-            //  echo "heresa";	// echo "<p>Welcome to the logged in area, {$username}!</p>";
-            //  while ($row = mysqli_fetch_object($result)) {
-            //    echo "here";
-                //$name = $row[0];
-                //$playerscore = $row[1];
-                //$teamname = $row[2];
-                //$teamscore = $row[3];
-            //  }
 ?>
     </body>
 </html>
