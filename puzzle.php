@@ -107,9 +107,6 @@
         mysqli_stmt_execute($checkFlag);
 
         //Adjust team rankings
-      //  $checkFlag =  "SELECT t_name, score, RANK() OVER (ORDER BY score DESC) AS t_rank FROM reaver.team";
-      //  $result = mysqli_query($checkFlag);
-        //while($row = mysqli_fetch_array($result)) {
         $checkFlag = "UPDATE reaver.team
         JOIN (SELECT p.t_name, IF(@lastScore <> p.score,
                                     @curRank := @curRank + 1,
@@ -123,16 +120,7 @@
               ORDER BY p.score DESC)
               ranks ON (ranks.t_name = reaver.team.t_name)
         SET    reaver.team.rank = ranks.rank";
-        //$checkFlag = "UPDATE reaver.team
-                    //  SET team.rank = T.rank FROM reaver.team
-                    //  INNER JOIN
-                    //  (SELECT score rank() over(ORDER BY score) team.rank
-                    //  FROM reaver.team) AS T
-                    //  ON reaver.team.score = T.score";
-            //}
-        //  mysqli_stmt_bind_param($checkFlag, 'is', $rank, $team);
-      //    $rank = $row['t_rank'];
-        //  $team = $row['t_name'];
+
           mysqli_stmt_execute($checkFlag);
 
       } elseif(mysqli_num_rows($submitResult)){
