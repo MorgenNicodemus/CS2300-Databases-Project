@@ -99,9 +99,7 @@
         mysqli_stmt_execute($checkFlag);
 
         //Adjust team rankings
-        $checkFlag = mysqli_prepare($ReaverDB, "SELECT t_name, score,
-                                            RANK() OVER (ORDER BY score DESC) AS t_rank
-                                   FROM reaver.team");
+        $checkFlag =  "SELECT t_name, score, RANK() OVER (ORDER BY score DESC) AS t_rank FROM reaver.team";
         $result = mysqli_query($checkFlag);
         while($row = mysqli_fetch_array($result)) {
           $checkFlag = mysqli_prepare($ReaverDB, "UPDATE reaver.team SET 'rank' = ? WHERE t_name = ?");
