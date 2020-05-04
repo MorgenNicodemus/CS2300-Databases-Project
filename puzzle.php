@@ -110,16 +110,17 @@
       //  $checkFlag =  "SELECT t_name, score, RANK() OVER (ORDER BY score DESC) AS t_rank FROM reaver.team";
       //  $result = mysqli_query($checkFlag);
         //while($row = mysqli_fetch_array($result)) {
-          $checkFlag = mysqli_prepare($ReaverDB, "UPDATE reaver.team
-                                                  SET team.rank = T.rank FROM reaver.team
-                                                  INNER JOIN
-                                                  (SELECT score rank() over(ORDER BY score) team.rank
-                                                  FROM reaver.team) AS T
-                                                  ON reaver.team.score = T.score");
+        $checkFlag = "UPDATE reaver.team
+                      SET team.rank = T.rank FROM reaver.team
+                      INNER JOIN
+                      (SELECT score rank() over(ORDER BY score) team.rank
+                      FROM reaver.team) AS T
+                      ON reaver.team.score = T.score";
+            //}                                
         //  mysqli_stmt_bind_param($checkFlag, 'is', $rank, $team);
       //    $rank = $row['t_rank'];
         //  $team = $row['t_name'];
-        //  mysqli_stmt_execute($checkFlag);
+          mysqli_stmt_execute($checkFlag);
 
       } elseif($submitResult){
         echo "<br><h2>Already solved by your team.</h2>"
