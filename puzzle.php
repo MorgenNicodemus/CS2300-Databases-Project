@@ -115,8 +115,8 @@
           $rank = $row['t_rank'];
           $team = $row['t_name'];
           mysqli_stmt_execute($checkFlag);
-          
-      } else if($submitResult){
+
+      } elseif($submitResult){
         echo "<br><h2>Already solved by your team.</h2>"
       }
         else {
