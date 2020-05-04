@@ -63,8 +63,8 @@
       mysqli_stmt_execute($checkFlag);
       $submitResult = mysqli_stmt_get_result($checkFlag);
 
-      if (($_POST["puzzleflag"] == $flagResult) and !($submitResult)) {
-        echo "<br><h2>Flag is Correct!</h2>";
+      if (($_POST["puzzleflag"] == $flagResult) and !mysqli_num_rows($submitResult)) {
+        echo "<br><h3>Flag is Correct!</h3>";
 
         //add puzzle to team has solved list
         $checkFlag =  mysqli_prepare($ReaverDB, "INSERT into reaver.t_has_solved (t_name, p_number) values (?, ?)");
@@ -111,22 +111,35 @@
       //  $result = mysqli_query($checkFlag);
         //while($row = mysqli_fetch_array($result)) {
         $checkFlag = "UPDATE reaver.team
-                      SET team.rank = T.rank FROM reaver.team
-                      INNER JOIN
-                      (SELECT score rank() over(ORDER BY score) team.rank
-                      FROM reaver.team) AS T
-                      ON reaver.team.score = T.score";
-            //}                                
+        JOIN (SELECT p.t_name, IF(@lastScore <> p.score,
+                                    @curRank := @curRank + 1,
+                                    @curRank) AS rank,
+                                IF(@lastScore = p.score,
+                                    @curRank := @curRank + 1,
+                                    @curRank),
+                                  @lastScore := p.score
+              FROM   reaver.team p
+              JOIN    (SELECT @curRank := 0, @lastScore := 0) r
+              ORDER BY p.score DESC)
+              ranks ON (ranks.t_name = reaver.team.t_name)
+        SET    reaver.team.rank = ranks.rank";
+        //$checkFlag = "UPDATE reaver.team
+                    //  SET team.rank = T.rank FROM reaver.team
+                    //  INNER JOIN
+                    //  (SELECT score rank() over(ORDER BY score) team.rank
+                    //  FROM reaver.team) AS T
+                    //  ON reaver.team.score = T.score";
+            //}
         //  mysqli_stmt_bind_param($checkFlag, 'is', $rank, $team);
       //    $rank = $row['t_rank'];
         //  $team = $row['t_name'];
           mysqli_stmt_execute($checkFlag);
 
-      } elseif($submitResult){
-        echo "<br><h2>Already solved by your team.</h2>"
+      } elseif(mysqli_num_rows($result)){
+        echo "<br><h3>Already solved by your team.</h3>"
       }
         else {
-        echo "Flag is Incorrect.";
+        echo "<br><h3>Flag is Incorrect.</h3>";
       }
       mysqli_stmt_free_result($checkFlag);
       mysqli_stmt_close($checkFlag);
