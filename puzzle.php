@@ -34,7 +34,6 @@
     $name = " ";
     $getPuzzleInfo =  "SELECT puzz_no, puzz_name, c_name, puzz_val, puzz_body FROM puzzle, p_belongs_to WHERE puzzle.puzz_no = p_belongs_to.p_no ORDER BY puzz_no ASC;";
 
-    //if(mysqli_stmt_execute($getPuzzleInfo));
     $result = mysqli_query($ReaverDB, $getPuzzleInfo);
 
     if (mysqli_num_rows($result) > 0) {
