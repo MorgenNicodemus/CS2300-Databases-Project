@@ -47,7 +47,7 @@ a.diagButton {
     list-style-type: none;
     margin: 40px 0px;
     padding: 10px 0px 10px 100px;
-    background-color: #3366ff;
+    background-color: #ff3300;
     vertical-align: middle;
 }
 
@@ -71,7 +71,7 @@ a.diagButton {
 .button {
     font: bold 36px;
     text-decoration: none;
-    background-color: #EEEEEE;
+    background-color: #CCFFFF;
     color: #333333;
     padding: 20px 60px 20px 60px;
     margin-left: 20px;

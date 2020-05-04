@@ -129,10 +129,9 @@
     } else {
       echo '
         <div align = "center">
-        <h2> Submit your puzzle here. </h2>
+        <h3> Submit your puzzle here. </h3>
         <section class = "submitaflag">
         <form name = "submitflag" action = "puzzle.php" method = "post">
-        <ul>
             <li> <label for = "puzzlenumber"> Puzzle Number </label>
                 <input type = "number" name = "puzzlenumber" placeholder = "Puzzle Number" required> </li>
             <br />
@@ -143,7 +142,6 @@
             <input type = "text" name = "teamname" placeholder = "Team Name" required> </li>
             <br />
             <li> <input type="submit" value="Submit Flag" name="submitflag"> </li>
-            </ul>
          </form>
          </section>
         </div>';
