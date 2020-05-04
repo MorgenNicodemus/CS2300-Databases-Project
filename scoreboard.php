@@ -20,7 +20,7 @@
     <?php
     require 'setup.php';
 
-    $scoreboard =  "SELECT t_name, score rank()over( ORDER BY 'rank' ASC ) t_rank FROM reaver.team;";
+    $scoreboard =  "SELECT t_name, score rank()over( ORDER BY score DESC ) t_rank FROM reaver.team;";
     $result = mysqli_query($scoreboard);
     while($row = mysqli_fetch_array($result)) {
       echo "Rank: ".$row['t_rank']."Team: ".$row['t_name']." | ".$row['score'];
