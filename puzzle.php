@@ -135,7 +135,7 @@
         //  $team = $row['t_name'];
           mysqli_stmt_execute($checkFlag);
 
-      } elseif(mysqli_num_rows($result)){
+      } elseif(mysqli_num_rows($submitResult)){
         echo "<br><h3>Already solved by your team.</h3>"
       }
         else {
