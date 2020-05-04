@@ -40,7 +40,7 @@
     if (mysqli_num_rows($result) > 0) {
         echo "<h2>Puzzles</h2>";
       while($row = mysqli_fetch_assoc($result)) {
-        echo "<br>Puzzle Number " .$row["puzz_no"]." | ".$row["c_name"] . " | " . $row["puzz_name"] . " | " . $row["puzz_val"] . " Points | ".$row["puzz_body"];
+        echo "<br><h4>Puzzle Number " .$row["puzz_no"]." | ".$row["c_name"] . " | " . $row["puzz_name"] . " | " . $row["puzz_val"] . " Points | ".$row["puzz_body"]."</h4>";
       }
     }
 
@@ -55,8 +55,16 @@
       mysqli_stmt_store_result($checkFlag);
       mysqli_stmt_bind_result($checkFlag, $flagResult);
       mysqli_stmt_fetch($checkFlag);
-      if ($_POST["puzzleflag"] == $flagResult) {
-        echo "Flag is Correct!";
+
+      $checkFlag = mysqli_prepare($ReaverDB, "SELECT t_name FROM t_has_solved WHERE t_name = ? AND p_number = ?");
+      mysqli_stmt_bind_param($checkFlag, 'si', $team, $puzzlenumber);
+      $team = $_POST["teamname"];
+      $puzzlenumber = $_POST["puzzlenumber"];
+      mysqli_stmt_execute($checkFlag);
+      $submitResult = mysqli_stmt_get_result($checkFlag);
+
+      if (($_POST["puzzleflag"] == $flagResult) and !($submitResult)) {
+        echo "<br><h2>Flag is Correct!</h2>";
 
         //add puzzle to team has solved list
         $checkFlag =  mysqli_prepare($ReaverDB, "INSERT into reaver.t_has_solved (t_name, p_number) values (?, ?)");
@@ -108,7 +116,9 @@
           $team = $row['t_name'];
           mysqli_stmt_execute($checkFlag);
         }
-
+      } else if($submitResult){
+        echo "<br><h2>Already solved by your team.</h2>"
+      }
       } else {
         echo "Flag is Incorrect.";
       }
