@@ -2,11 +2,11 @@
 ## Morgen Nicodemus, Pamela Petterchak, Nicholas Lambert
 ## Spring 2020 CS2300 Databases project
 
-####Installation
+###Installation
 This project requires the installation of PHP, and MySQL.
 The website should be run with php, and should connect to a MySQL database named 'reaver' with root user password being 'SammieIsLife123'.
 
-####Description of files
+###Description of files
 index.php - The index page, which users first land on. Guides them to log-in, or register
 assets->main.css - The css file guiding the appearance of the website.
 setup.php - Initiates database connection, allowing for MySQL interaction
