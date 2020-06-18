@@ -1,6 +1,6 @@
 # Don't Fear The Reaver's ReaverCTF
 ## Morgen Nicodemus, Pamela Petterchak, Nicholas Lambert
-##CS2300 Databases project
+## Spring 2020 CS2300 Databases project
 
 ####Installation
 This project requires the installation of PHP, and MySQL.
